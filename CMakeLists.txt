@@ -22,7 +22,7 @@ if (USE_ARM_COMPILER)
     set(ELF ${PROJECT_NAME}.elf)
     set(STARTUP_FILE "startup_stm32f411retx.s")
 
-    add_executable(${ELF} ${STARTUP_FILE} main.cpp)
+    add_executable(${ELF} ${STARTUP_FILE} src/main.cpp)
 
     set_target_properties(
             ${ELF}
@@ -59,6 +59,10 @@ if (USE_ARM_COMPILER)
     add_custom_command(TARGET ${ELF} POST_BUILD
             COMMAND arm-none-eabi-objdump -D "${ELF}" > "${PROJECT_NAME}.lst")
 endif ()
+
+include_directories(inc/hydra_hal/core)
+include_directories(inc/hydra_hal/device)
+include_directories(inc/hydra_hal/drivers)
 
 if (NOT USE_ARM_COMPILER)
     add_subdirectory(tests)
