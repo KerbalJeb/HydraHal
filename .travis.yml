@@ -14,7 +14,8 @@ addons:
 
 # Build your code e.g. by calling make
 script:
-  - doxygen Doxyfile
+  - cmake CMakeLists.txt
+  - cmake  --build . --target Doxygen
 
 # Generate and deploy documentation
 deploy:
