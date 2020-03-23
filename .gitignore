@@ -3,3 +3,5 @@
 /cmake-build-win/
 /cmake-build-win_test/
 /.idea
+/docs/html/
+/docs/latex/

@@ -9,7 +9,6 @@
 #define REG_HPP_
 
 #include<cstdint>
-
 namespace {
     inline std::uint32_t _read(
             volatile std::uint32_t *reg,
@@ -64,6 +63,13 @@ namespace hydra::core {
         }
     };
 
+    /*!
+     * \brief Represents a single field in a perpheral register
+     * @tparam base_address
+     * @tparam mask
+     * @tparam offset
+     * @tparam mutability_policy
+     */
     template
             <
                     std::uint32_t base_address,
@@ -113,7 +119,6 @@ namespace hydra::core {
                     mask,
                     offset + idx * width);
         }
-
     private:
         static constexpr std::uint32_t mask = (1 << width) - 1;
     };
