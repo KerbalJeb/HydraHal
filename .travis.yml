@@ -1,10 +1,14 @@
 language: cpp
+compiler: gcc
 
-# Install dependencies
+os: linux
 addons:
   apt:
     packages:
       - doxygen
+      - g++-7
+    sources:
+      - ubuntu-toolchain-r-test
 
 # Build your code e.g. by calling make
 script:
