@@ -7,91 +7,127 @@
 
 #include <cstdint>
 #include <array>
-
+/*!
+ * \brief Contains core types for the HAL that should be universal for all devices
+ */
 namespace hydra::core {
     /*!
-     * \brief A read-write bit field (specific segment withing a register)
-     * @tparam T The base type of the registers (ex. uint32_t for 32 bit processors)
+     * \brief Base bit field class, should NEVER be used directly (does not have any member functions)
      */
-    template<typename T>
-    struct rw_bit_field {
+    struct bit_field {
         /*!
          * \brief Used to create constexpr registers so they shouldn't use up any ram to store internal data at runtime
          * @param base_address The address of the memory mapped IO register
          * @param mask The non-offset mask (ie. for a 2 bit wide field wide field this would be set to 0x3 or 0b11)
          * @param offset How many bytes from the lsb the field is
          */
-        constexpr rw_bit_field(std::uintptr_t base_address, T mask, T offset) :
+        constexpr bit_field(std::uintptr_t base_address, std::uint32_t mask, std::uint32_t offset) :
                 base_address(base_address), mask(mask), offset(offset) {}
 
-        inline void write(T data) const {
-            auto reg = reinterpret_cast<volatile T *>(base_address);
+        /*!
+         * \brief Default constructor, used so an 'empty' std::array of bit_fields can be created
+         */
+        constexpr bit_field() : base_address(0), mask(0), offset(0) {}
+
+    protected:
+        std::uintptr_t base_address;
+        std::uint32_t mask;
+        std::uint32_t offset;
+    };
+
+    /*!
+     * \brief A read-write bit field (specific segment withing a register)
+     */
+    struct rw_bit_field : public bit_field {
+        using bit_field::bit_field;
+
+        inline void write(std::uint32_t data) const {
+            auto reg = reinterpret_cast<volatile std::uint32_t *>(base_address);
             *reg = (*reg & ~(mask << offset)) | ((data & mask) << offset);
         }
 
-        inline T read() const {
-            auto reg = reinterpret_cast<volatile T *>(base_address);
+        [[nodiscard]] inline std::uint32_t read() const {
+            auto reg = reinterpret_cast<volatile std::uint32_t *>(base_address);
             return (*reg & (mask << offset)) >> offset;
         }
-
-    private:
-        const std::uintptr_t base_address;
-        const T mask;
-        const T offset;
-
     };
 
     /*!
      * \brief A read only register, does not have a write member function
-     * @tparam T
      */
-    template<typename T>
-    struct ro_bit_field {
-        constexpr ro_bit_field(std::uintptr_t base_address, T mask, T offset) :
-                base_address(base_address), mask(mask), offset(offset) {}
+    struct ro_bit_field : public bit_field {
+        using bit_field::bit_field;
 
-        T read() const {
-            auto reg = reinterpret_cast<volatile T *>(base_address);
+        [[nodiscard]] std::uint32_t read() const {
+            auto reg = reinterpret_cast<volatile std::uint32_t *>(base_address);
             return (*reg & (mask << offset)) >> offset;
         }
-
-    private:
-        const std::uintptr_t base_address;
-        const T mask;
-        const T offset;
-
     };
 
     /*!
      * \brief A write only register, does not have a read member function and will not attempt to read
      * from the register when witting to it.
-     * @tparam T
      */
-    template<typename T>
-    struct wo_bit_field {
-        constexpr wo_bit_field(std::uintptr_t base_address, T mask, T offset) :
-                baseAddress(base_address), mask(mask), offset(offset) {}
+    struct wo_bit_field : public bit_field {
+        using bit_field::bit_field;
 
-        void write(T data) const {
-            auto reg = reinterpret_cast<volatile T *>(baseAddress);
+        void write(std::uint32_t data) const {
+            auto reg = reinterpret_cast<volatile std::uint32_t *>(base_address);
             *reg = (data & mask) << offset;
         }
-
-
-    private:
-        const std::uintptr_t baseAddress;
-        const T mask;
-        const T offset;
-
     };
 
-    template<typename T, int i>
-    using rw_bit_field_array = std::array<const rw_bit_field<T>, i>;
+    /*!
+     * \brief A group of sequential bit fields, can cover multiple registers
+     * @tparam T Type of bit_field
+     * @tparam N Number of bit_fields
+     */
+    template<typename T, std::size_t N>
+    struct bit_field_bit_group {
+        /*!
+         * \brief Used to create a constexpr bit_field_bit_group so that no RAM is used for it's internal storage
+         * @param base_addr The address of the register (will be auto incremented in multiple registers are covered)
+         * @param width The number of bits per bit_field
+         */
+        constexpr bit_field_bit_group(std::uintptr_t base_addr, std::size_t width) {
+            std::size_t offset = 0;
 
-    template<typename T, int i>
-    using ro_bit_field_array = std::array<ro_bit_field<T>, i>;
+            for (auto &field: bit_fields) {
+                field = T{base_addr + (offset / 32) * 4, (UINT32_C(1) << width) - 1, offset % 32};
+                offset += width;
+            }
+        }
 
-    template<typename T, int i>
-    using wo_bit_field_array = std::array<wo_bit_field<T>, i>;
+        /*!
+         * \brief Writes to a particular bit field in a group
+         * @param idx The index of the bit field to write to (starting from zero)
+         * @param data The value to write (masked so bits outside of the register range are discared)
+         */
+        void write(std::size_t idx, std::uint32_t data) const {
+            bit_fields.at(idx).write(data);
+        }
+
+        /*!
+         * \brief Reads from a particular bit field in a group
+         * @param idx The index of the bit field to read from (starting from zero)
+         * @return
+         */
+        [[nodiscard]] std::uint32_t read(std::size_t idx) const {
+            return bit_fields.at(idx).read();
+        }
+
+    private:
+        std::array<T, N> bit_fields{};
+    };
+
+
+    template<std::size_t N>
+    using rw_bit_field_group = bit_field_bit_group<rw_bit_field, N>;
+
+    template<std::size_t N>
+    using ro_bit_field_group = bit_field_bit_group<ro_bit_field, N>;
+
+    template<std::size_t N>
+    using wo_bit_field_group = bit_field_bit_group<wo_bit_field, N>;
 }
 #endif //REG_H
