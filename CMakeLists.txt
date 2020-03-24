@@ -68,6 +68,7 @@ include_directories(inc/hydra_hal/device)
 include_directories(inc/hydra_hal/drivers)
 
 if (NOT USE_ARM_COMPILER)
+    enable_testing()
     add_subdirectory(tests)
 endif ()
 

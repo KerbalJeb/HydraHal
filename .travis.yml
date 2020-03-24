@@ -17,9 +17,9 @@ script:
   - cd build
   - export CC=gcc-7
   - export CXX=g++-7
-  - cmake .. -DUSE_ARM_COMPILER=OFF -DCMAKE_VERBOSE_MAKEFILE=ON
+  - cmake .. -DUSE_ARM_COMPILER=OFF
   - cmake --build . --target runTests
-  - ctest
+  - ctest -V
 
 # Generate and deploy documentation
 deploy:
