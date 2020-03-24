@@ -36,7 +36,8 @@ if (USE_ARM_COMPILER)
        -mfpu=fpv4-sp-d16 -mfloat-abi=hard\
        -Wl,--start-group\
        -lc -lm -lstdc++\
-       -lsupc++ -Wl,--end-group")
+       -lsupc++ -Wl,--end-group\
+       -Wl,--print-memory-usage")
 
     target_compile_options(${ELF} PUBLIC
             -mcpu=cortex-m4
@@ -49,6 +50,7 @@ if (USE_ARM_COMPILER)
             -fno-threadsafe-statics
             -fno-use-cxa-atexit
             -Wall
+            -Wno-unused-but-set-variable
             -std=c++17
             -fstack-usage
             --specs=nano.specs
