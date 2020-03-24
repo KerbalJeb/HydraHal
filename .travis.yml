@@ -1,7 +1,4 @@
-# Blacklist
-branches:
-  only:
-    - master
+language: cpp
 
 # Install dependencies
 addons:
@@ -12,6 +9,11 @@ addons:
 # Build your code e.g. by calling make
 script:
   - doxygen docs/Doxyfile
+  - mkdir build
+  - cd build
+  - cmake ..
+  - cmake -DUSE_ARM_COMPILER=OFF --build .
+  - ctest
 
 # Generate and deploy documentation
 deploy:
