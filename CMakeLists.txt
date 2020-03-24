@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.7)
 option(USE_ARM_COMPILER "Compile for stm32" ON)
 
+set(CMAKE_CXX_STANDARD 17)
 
 # specify the cross compiler
 
