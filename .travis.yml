@@ -11,8 +11,8 @@ script:
   - doxygen docs/Doxyfile
   - mkdir build
   - cd build
-  - cmake ..
-  - cmake -DUSE_ARM_COMPILER=OFF --build .
+  - cmake .. -DUSE_ARM_COMPILER=OFF
+  - cmake --build .
   - ctest
 
 # Generate and deploy documentation
