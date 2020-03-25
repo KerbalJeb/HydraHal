@@ -88,9 +88,10 @@ namespace hydra::core {
          * \brief Used to create a constexpr bit_field_bit_group so that no RAM is used for it's internal storage
          * @param base_addr The address of the register (will be auto incremented in multiple registers are covered)
          * @param width The number of bits per bit_field
+         * @param initial_offset The initial offset of the group (ie. first bit in group)
          */
-        constexpr bit_field_bit_group(std::uintptr_t base_addr, std::size_t width) {
-            std::size_t offset = 0;
+        constexpr bit_field_bit_group(std::uintptr_t base_addr, std::size_t width, std::size_t initial_offset = 0x0) {
+            std::size_t offset = initial_offset;
 
             for (auto &field: bit_fields) {
                 field = T{base_addr + (offset / 32) * 4, (UINT32_C(1) << width) - 1, offset % 32};
