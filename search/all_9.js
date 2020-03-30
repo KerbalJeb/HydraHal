@@ -1,0 +1,28 @@
+var searchData=
+[
+  ['jauto',['JAUTO',['../namespace_a_d_c1_1_1_c_r1.html#a709ba6af35d585cc5638978ca695255d',1,'ADC1::CR1']]],
+  ['jawden',['JAWDEN',['../namespace_a_d_c1_1_1_c_r1.html#a1e38a96f6227e7552c71f8e4d41fc309',1,'ADC1::CR1']]],
+  ['jdata',['JDATA',['../namespace_a_d_c1_1_1_j_d_r1.html#aa2f8871ffa4ef8499affe3c2ef7568d3',1,'ADC1::JDR1::JDATA()'],['../namespace_a_d_c1_1_1_j_d_r2.html#ace1fd961acbf85d68a4244b8d62d0abd',1,'ADC1::JDR2::JDATA()'],['../namespace_a_d_c1_1_1_j_d_r3.html#a5f959a7cab1fb5a1833b55913afcbacd',1,'ADC1::JDR3::JDATA()'],['../namespace_a_d_c1_1_1_j_d_r4.html#a652db067decc522d768ba5978259fd06',1,'ADC1::JDR4::JDATA()']]],
+  ['jdiscen',['JDISCEN',['../namespace_a_d_c1_1_1_c_r1.html#abe4eea6c8aa8332812bfc5d43dfab517',1,'ADC1::CR1']]],
+  ['jeoc',['JEOC',['../namespace_a_d_c1_1_1_s_r.html#a82b2905d4a5208d9a75fee4f5be0339d',1,'ADC1::SR']]],
+  ['jeoc1',['JEOC1',['../namespace_a_d_c___common_1_1_c_s_r.html#a4b34f12a7c3d337204f8e35ac4616357',1,'ADC_Common::CSR']]],
+  ['jeoc2',['JEOC2',['../namespace_a_d_c___common_1_1_c_s_r.html#aff6574f0b74f8521e717143ab9a401af',1,'ADC_Common::CSR']]],
+  ['jeoc3',['JEOC3',['../namespace_a_d_c___common_1_1_c_s_r.html#acbe7049f5e07b84a9092d762de744984',1,'ADC_Common::CSR']]],
+  ['jeocie',['JEOCIE',['../namespace_a_d_c1_1_1_c_r1.html#af9a6593a6c0a669921399d3219a73a96',1,'ADC1::CR1']]],
+  ['jexten',['JEXTEN',['../namespace_a_d_c1_1_1_c_r2.html#abc353df71514c03e2a892f8cea4b288e',1,'ADC1::CR2']]],
+  ['jextsel',['JEXTSEL',['../namespace_a_d_c1_1_1_c_r2.html#af7176165113a8cb8826f4711e008e012',1,'ADC1::CR2']]],
+  ['jl',['JL',['../namespace_a_d_c1_1_1_j_s_q_r.html#abf20557cf7068efa450acbf5d0057057',1,'ADC1::JSQR']]],
+  ['joffset1',['JOFFSET1',['../namespace_a_d_c1_1_1_j_o_f_r1.html#ae523995f7876d366996d6458c81f7c2f',1,'ADC1::JOFR1']]],
+  ['joffset2',['JOFFSET2',['../namespace_a_d_c1_1_1_j_o_f_r2.html#a8d0565ba41616dc51ffaf7710f9a88eb',1,'ADC1::JOFR2']]],
+  ['joffset3',['JOFFSET3',['../namespace_a_d_c1_1_1_j_o_f_r3.html#a924e761126a453f4b156c20ac8fa1a42',1,'ADC1::JOFR3']]],
+  ['joffset4',['JOFFSET4',['../namespace_a_d_c1_1_1_j_o_f_r4.html#ac42f0649afa63cbf59ef80a95a78c412',1,'ADC1::JOFR4']]],
+  ['jsq1',['JSQ1',['../namespace_a_d_c1_1_1_j_s_q_r.html#a69ecbf6c6d4ec91d42f21d5ce5878231',1,'ADC1::JSQR']]],
+  ['jsq2',['JSQ2',['../namespace_a_d_c1_1_1_j_s_q_r.html#a33f2f483afbbda23f0d83786adf04b4a',1,'ADC1::JSQR']]],
+  ['jsq3',['JSQ3',['../namespace_a_d_c1_1_1_j_s_q_r.html#a6071f01bf052f277c584436b4b962e66',1,'ADC1::JSQR']]],
+  ['jsq4',['JSQ4',['../namespace_a_d_c1_1_1_j_s_q_r.html#a45e6c67218a44deb8bfe134ea8cc8a02',1,'ADC1::JSQR']]],
+  ['jstrt',['JSTRT',['../namespace_a_d_c1_1_1_s_r.html#a9d06747b4145d43386204f9429d3f8ea',1,'ADC1::SR']]],
+  ['jstrt1',['JSTRT1',['../namespace_a_d_c___common_1_1_c_s_r.html#a0fc4aa765f00dd229d3705e3605db54e',1,'ADC_Common::CSR']]],
+  ['jstrt2',['JSTRT2',['../namespace_a_d_c___common_1_1_c_s_r.html#ac3dcc5520ceae98a391c635e4d6ec0cf',1,'ADC_Common::CSR']]],
+  ['jstrt3',['JSTRT3',['../namespace_a_d_c___common_1_1_c_s_r.html#a0e504ba051337f079b87c3034a6ea93f',1,'ADC_Common::CSR']]],
+  ['jswstart',['JSWSTART',['../namespace_a_d_c1_1_1_c_r2.html#a1c93a0e5833dc7961c5e3b6ecdd118e4',1,'ADC1::CR2']]]
+];
