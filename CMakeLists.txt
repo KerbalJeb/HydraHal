@@ -21,7 +21,7 @@ if (USE_ARM_COMPILER)
     project(stm32_hal_dev)
     enable_language(ASM)
     set(ELF ${PROJECT_NAME}.elf)
-    set(STARTUP_FILE "startup_stm32f411retx.s")
+    set(STARTUP_FILE "startup.cpp")
 
     add_executable(${ELF} ${STARTUP_FILE} src/main.cpp)
 

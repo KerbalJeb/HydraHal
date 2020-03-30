@@ -1,6 +1,8 @@
 #include <gpio.h>
 
-auto led = hydra::st::gpio::PD15;
+constexpr auto led = hydra::st::gpio::PD15;
+
+static volatile int x = 75;
 
 int main() {
     led.configure_pin_output();
