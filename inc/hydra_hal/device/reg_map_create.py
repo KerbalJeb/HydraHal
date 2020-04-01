@@ -33,6 +33,7 @@ def create_register_access(register, base_address, peripheral_name):
     access = access.text if access is not None else None
 
     code_string = f"\tnamespace {register_name} {{\n"
+    code_string += f"\t\tvolatile static std::uint32_t& raw_{register_name.lower()} = *reinterpret_cast<volatile std::uint32_t *>({address:#0{8}x});\n"
 
     for field in fields:
         code_string += create_field(field, access, address)

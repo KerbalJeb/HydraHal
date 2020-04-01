@@ -51,6 +51,7 @@ if (USE_ARM_COMPILER)
             -fno-threadsafe-statics
             -fno-use-cxa-atexit
             -Wall
+            -Wno-unused-local-typedefs
             -Wno-unused-but-set-variable
             -std=c++17
             -fstack-usage
