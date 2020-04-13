@@ -43,7 +43,7 @@ if (USE_ARM_COMPILER)
     target_compile_options(${ELF} PUBLIC
             -mcpu=cortex-m4
             -g3
-            -O3
+            -O2
             -ffunction-sections
             -fdata-sections
             -fno-exceptions

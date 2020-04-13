@@ -1,12 +1,13 @@
-#include <gpio.h>
+#include <GpioPort.h>
+#include "register_defs.h"
 
-constexpr auto led = hydra::st::gpio::PD15;
-
-static volatile int x = 75;
+auto &gpiod = *reinterpret_cast<GpioPortRegisters *>(0x40020C00);
 
 int main() {
-    led.configure_pin_output();
-    led.set_pin();
+    RCC::AHB1ENR::GPIODEN = true;
+    asm("nop");
+    gpiod.moder[15] = GpioPortRegisters::mode::Output;
+    gpiod.bsr[15]   = true;
 
     while (1) {}
 

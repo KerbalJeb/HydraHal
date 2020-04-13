@@ -2,7 +2,6 @@
 // Created by Ben on 2020-03-23.
 //
 
-#include <reg.h>
 #include <gtest/gtest.h>
 
 using namespace hydra::core;
@@ -21,19 +20,19 @@ protected:
 };
 
 TEST_F(BitFieldTest, ReadOnly) {
-    ASSERT_EQ(read_only.read(), 0xE);
+    ASSERT_EQ(read_only, 0xE);
     ASSERT_EQ(dummy_register, 0xdeadbeef);
 }
 
 TEST_F(BitFieldTest, WriteOnly) {
-    write_only.write(0x1);
+    write_only = 0x1;
     ASSERT_EQ(dummy_register, 0x00000010);
 }
 
 TEST_F(BitFieldTest, ReadWrite) {
-    ASSERT_EQ(read_write.read(), 0xE);
-    read_write.write(0x1);
-    ASSERT_EQ(read_write.read(), 0x1);
+    ASSERT_EQ(read_write, 0xE);
+    read_write = 0x1;
+    ASSERT_EQ(read_write, 0x1);
     ASSERT_EQ(dummy_register, 0xDEADBE1F);
 }
 
@@ -54,10 +53,10 @@ protected:
 };
 
 TEST_F(BitFieldGroupTest, FirstRegRead) {
-    ASSERT_EQ(read_only.read(0), 0xEF);
-    ASSERT_EQ(read_only.read(1), 0xBE);
-    ASSERT_EQ(read_only.read(2), 0xAD);
-    ASSERT_EQ(read_only.read(3), 0xDE);
+    ASSERT_EQ(read_only[0], 0xEF);
+    ASSERT_EQ(read_only[1], 0xBE);
+    ASSERT_EQ(read_only[2], 0xAD);
+    ASSERT_EQ(read_only[3], 0xDE);
     ASSERT_EQ(dummy_registers[0], 0xdeadbeef);
     ASSERT_EQ(dummy_registers[1], 0xfacef00d);
     ASSERT_EQ(dummy_registers[2], 0xfeedcafe);
@@ -65,7 +64,7 @@ TEST_F(BitFieldGroupTest, FirstRegRead) {
 }
 
 TEST_F(BitFieldGroupTest, FirstRegWrite) {
-    write_only.write(2, 0x1);
+    write_only[2] = 0x1;
     ASSERT_EQ(dummy_registers[0], 0x00010000);
     ASSERT_EQ(dummy_registers[1], 0xfacef00d);
     ASSERT_EQ(dummy_registers[2], 0xfeedcafe);
@@ -73,8 +72,8 @@ TEST_F(BitFieldGroupTest, FirstRegWrite) {
 }
 
 TEST_F(BitFieldGroupTest, FirstRegReadWrite) {
-    read_write.write(3, 0x1);
-    ASSERT_EQ(read_write.read(3), 0x1);
+    read_write[3] = 0x1;
+    ASSERT_EQ(read_write[3], 0x1);
     ASSERT_EQ(dummy_registers[0], 0x01adbeef);
     ASSERT_EQ(dummy_registers[1], 0xfacef00d);
     ASSERT_EQ(dummy_registers[2], 0xfeedcafe);
@@ -82,8 +81,8 @@ TEST_F(BitFieldGroupTest, FirstRegReadWrite) {
 }
 
 TEST_F(BitFieldGroupTest, LastRegRead) {
-    ASSERT_EQ(read_write.read(14), 0xaf);
-    ASSERT_EQ(read_write.read(13), 0xda);
+    ASSERT_EQ(read_write[14], 0xaf);
+    ASSERT_EQ(read_write[13], 0xda);
     ASSERT_EQ(dummy_registers[0], 0xdeadbeef);
     ASSERT_EQ(dummy_registers[1], 0xfacef00d);
     ASSERT_EQ(dummy_registers[2], 0xfeedcafe);

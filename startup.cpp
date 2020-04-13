@@ -62,34 +62,34 @@ void init_clk() {
     constexpr unsigned int Q = std::get<3>(clk_tuple);
 
     /*Increase the number of wait cycles for flash to adjust for higher clock speed*/
-    FLASH::ACR::LATENCY.write(FLASH_WAIT_CYCLES);
+    FLASH::ACR::LATENCY = FLASH_WAIT_CYCLES;
 
     if (SYSTEM_CLOCK_SPEED <= 64000000) {
-        PWR::CR::VOS.write(0x1);
+        PWR::CR::VOS = 0x1;
     } else if (SYSTEM_CLOCK_SPEED <= 84000000) {
-        PWR::CR::VOS.write(0x2);
+        PWR::CR::VOS = 0x2;
     } else {
-        PWR::CR::VOS.write(0x3);
+        PWR::CR::VOS = 0x3;
     }
 
     if (USE_EXTERNAL_CLK) {
         /*Enable the external clock and wait for it to be ready*/
-        RCC::CR::HSEON.write(true);
-        while (!RCC::CR::HSERDY.read()) {}
+        RCC::CR::HSEON = true;
+        while (!(std::uint32_t) RCC::CR::HSERDY) {}
     }
 
     RCC::PLLCFGR::raw_pllcfgr = (M | (N << 6U) | (P << 16U) | (Q << 24U));
-    RCC::PLLCFGR::PLLSRC.write(USE_EXTERNAL_CLK);
-    RCC::CR::PLLON.write(true);
-    RCC::CFGR::PPRE1.write(APB1_CLK_PRESCALER);
-    RCC::CFGR::PPRE2.write(APB2_CLK_PRESCALER);
-    RCC::CFGR::HPRE.write(HCLK_PRESCALLER);
+    RCC::PLLCFGR::PLLSRC      = USE_EXTERNAL_CLK;
+    RCC::CR::PLLON            = true;
+    RCC::CFGR::PPRE1          = APB1_CLK_PRESCALER;
+    RCC::CFGR::PPRE2          = APB2_CLK_PRESCALER;
+    RCC::CFGR::HPRE           = HCLK_PRESCALLER;
 
     /*Wait for the PLL clock to stabilize*/
-    while (!RCC::CR::PLLRDY.read()) {}
+    while (!(std::uint32_t) RCC::CR::PLLRDY) {}
 
     /*Switch to the PLL clock*/
-    RCC::CFGR::SW1.write(true);
+    RCC::CFGR::SW1 = true;
 }
 
 
