@@ -1,13 +1,12 @@
-#include <GpioPort.h>
-#include "register_defs.h"
+#include "peripherals.h"
+#include "Pins.h"
 
-auto &gpiod = *reinterpret_cast<GpioPortRegisters *>(0x40020C00);
 
 int main() {
-    RCC::AHB1ENR::GPIODEN = true;
+    Rcc.gpioden = true;
     asm("nop");
-    gpiod.moder[15] = GpioPortRegisters::mode::Output;
-    gpiod.bsr[15]   = true;
+    PD15::configure_output();
+    PD15::set();
 
     while (1) {}
 

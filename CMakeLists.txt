@@ -66,7 +66,6 @@ endif ()
 
 include_directories(inc/hydra_hal/core)
 include_directories(inc/hydra_hal/device)
-include_directories(inc/hydra_hal/drivers)
 
 if (NOT USE_ARM_COMPILER)
     enable_testing()

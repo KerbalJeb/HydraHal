@@ -4,7 +4,6 @@
 #include <cstdint>
 #include <algorithm>
 #include <tuple>
-#include "register_defs.h"
 #include "vectors.cpp"
 #include "clk_utils.h"
 #include "clock_config.h"
@@ -60,7 +59,7 @@ void init_clk() {
     constexpr unsigned int N = std::get<1>(clk_tuple);
     constexpr unsigned int P = std::get<2>(clk_tuple);
     constexpr unsigned int Q = std::get<3>(clk_tuple);
-
+#if false
     /*Increase the number of wait cycles for flash to adjust for higher clock speed*/
     FLASH::ACR::LATENCY = FLASH_WAIT_CYCLES;
 
@@ -90,6 +89,7 @@ void init_clk() {
 
     /*Switch to the PLL clock*/
     RCC::CFGR::SW1 = true;
+#endif
 }
 
 

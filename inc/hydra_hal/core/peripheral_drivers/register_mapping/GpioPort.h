@@ -35,8 +35,8 @@ public:
     enum class speed : std::uint32_t {
         Low = 0x0,
         Medium,
-        Fast,
-        High
+        High,
+        VeryHigh
     };
     union {
         bit_array<speed, 0x2, 0x10> ospeedr;
@@ -55,32 +55,34 @@ public:
     };
 
     /*IDR*/
-    enum class PinState : std::uint32_t {
-        High = 0x0,
-        Low
-    };
     union {
-        const bit_array<PinState, 0x1, 0x10> idr;
-        const std::uint32_t                  raw_idr;
+        const bit_array<std::uint32_t, 0x1, 0x10> idr;
+        const std::uint32_t                       raw_idr;
     };
     /*ODR*/
-    bit_array<PinState, 0x1, 0x10> odr;
+    union {
+        bit_array<std::uint32_t, 0x1, 0x10> odr;
+        std::uint32_t                       raw_odr;
+    };
+
     /*BSSR*/
     union {
         bit_array<std::uint32_t, 0x1, 0x10>       bsr;
         bit_array<std::uint32_t, 0x1, 0x10, 0x10> brr;
         std::uint32_t                             raw_bsrr;
     };
+
     /*LCKR*/
     enum class Lock : std::uint32_t {
         Unlocked = 0x0,
         Locked
     };
     union {
-        bit_array<Lock, 0x1, 0x10>   lckk;
-        bit_field_t<Lock, 0x1, 0x10> lcky;
-        std::uint32_t                raw_lcker;
+        bit_array<Lock, 0x1, 0x10> lckk;
+        bit_field<Lock, 0x1, 0x10> lcky;
+        std::uint32_t              raw_lcker;
     };
+
     /*AFR*/
     enum class alt_function : std::uint32_t {
         AF0 = 0x0,
@@ -102,7 +104,7 @@ public:
     };
     union {
         bit_array<alt_function, 0x4, 0x10> afr;
-        std::uint32_t                      raw_afr;
+        std::uint32_t                      raw_afr[2];
     };
 };
 
